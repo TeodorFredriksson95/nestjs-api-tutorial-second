@@ -1,4 +1,11 @@
-import { Body, Controller, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { type } from 'os';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
@@ -12,9 +19,11 @@ export class AuthController {
 
   @Post('signup')
   signup(@Body() dto: AuthDto) {
+    console.log(dto);
     return this.authService.signup(dto);
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('signin')
   signin(@Body() dto: AuthDto) {
     return this.authService.signin(dto);
@@ -22,4 +31,4 @@ export class AuthController {
 }
 
 //dto = data transer object
-//dto is an object used to push data to validate or shape logic
+//dto is an object used to push data in order to validate or shape logic
